@@ -90,6 +90,21 @@ You SHOULD put this in, or the plugin will have a guess at which file to change,
   - If `true`, **JCrush CSS** will put a semi-colon at the end of the file.
   - If `false`, no semi-colon, for shorter output.
 
+- `strip` (Boolean, default: `true`):
+  - If `true`, **JCrush CSS** will strip escaped newlines and any adjacent whitespace from input.
+  - If `false`, will retain the input as-is.
+
+- `reps` (Number, default: 0):
+  - Used to set a maximum number of compression replacements.
+
+- `prog` (Boolean, default: `true`):
+  - If `true`, **JCrush CSS** will output console messages about each replacement.
+  - If `false`, will work silently.
+
+- `fin` (Boolean, default: `true`):
+  - If `true`, **JCrush CSS** will output final console messages about bytes saved or failure.
+  - If `false`, will remain silent.
+
 Additionally, you can alter compression behavior:
 
 - `maxLen` (Number, default: 40): The maximum length of substrings to consider.  Setting this higher will slow things down.

@@ -18,17 +18,18 @@ var jcrush = require('jcrush');
 module.exports = (opts = {}) => {
   let { Transform } = require('stream'), PluginError = require('plugin-error');
   const PLUGIN_NAME = 'gulp-jcrushcss';
-  opts = { ...{ html: [], inline: 0, appendExt: 1 }, ...opts };
+  opts = { ...{ html: [], inline: 0, appendExt: 1, fin: 1 }, ...opts };
   return new Transform({
     objectMode: true,
     transform(file, _, cb) {
       if (file.isNull()) return cb(null, file);
       if (file.isStream()) return cb(new PluginError(PLUGIN_NAME, 'Streaming not supported'));
       try {
-        let wrapped = `document.head.innerHTML+=\`<style>${file.contents.toString()}</style>\``,
+        let wrapped = `document.head.innerHTML+=\`<style>${file.contents.toString()}</style>\``, // 41
           jsCode = jcrush.code(wrapped, opts),
+          overhead = 41 + (opts.inline ? 17 : opts.appendExt ? 27 : 24) - 47,
           parsed = path.parse(file.path);
-        if (jsCode != wrapped) {
+        if (jsCode != wrapped && jsCode.length - wrapped.length > overhead) {
           if (!opts.html.length) {
             let htmlGuess = path.join(path.dirname(file.path), '..', 'index.html');
             fs.existsSync(htmlGuess) && opts.html.push(htmlGuess);
@@ -37,15 +38,18 @@ module.exports = (opts = {}) => {
           if (opts.html.length) {
             opts.html.forEach(htmlFilePath => {
               fs.writeFileSync(htmlFilePath, fs.readFileSync(htmlFilePath, 'utf-8')
-                .replace(new RegExp(`<link[^>]*href=\\s*['"]?${file.basename}['"]?[^>]*>`, 'gi'),
-                  opts.inline ? `<script>${jsCode}</script>`: `<script src="${path.relative(path.dirname(htmlFilePath), file.path)}.js"></script>`)
+                .replace(new RegExp(`<link[^>]*href=\\s*['"]?${file.basename}['"]?[^>]*>`, 'gi'), // 14 to 47
+                  opts.inline ? `<script>${jsCode}</script>`: `<script src="${path.relative(path.dirname(htmlFilePath), file.path)}.js"></script>`) // 17, 27 or 24
               );
-              console.log('✅ Updated HTML file:', htmlFilePath);
+              opts.fin && console.log('✅ Updated HTML file:', htmlFilePath);
               htmlUpdated = true;
             });
           }
-          if (!htmlUpdated) console.error("⚠️  No HTML file found.  CSS not processed.");
+          if (!htmlUpdated) opts.fin && console.error("⚠️  No HTML file found.  CSS not processed.");
           else if (!opts.inline) fs.writeFileSync(path.join(parsed.dir, parsed.name + (opts.appendExt ? parsed.ext : '') + '.js'), jsCode);
+        }
+        else {
+          opts.fin && console.log(`⚠️  After adding overhead JCrush CSS could not optimize code. Keeping original.`);
         }
         cb(null, file);
       }
