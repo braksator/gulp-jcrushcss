@@ -29,7 +29,7 @@ module.exports = (opts = {}) => {
           jsCode = jcrush.code(wrapped, opts),
           overhead = 41 + (opts.inline ? 17 : opts.appendExt ? 27 : 24) - 47,
           parsed = path.parse(file.path);
-        if (jsCode != wrapped && jsCode.length - wrapped.length > overhead) {
+        if (jsCode != wrapped && file.contents.toString().length - jsCode.length > overhead) {
           if (!opts.html.length) {
             let htmlGuess = path.join(path.dirname(file.path), '..', 'index.html');
             fs.existsSync(htmlGuess) && opts.html.push(htmlGuess);
