@@ -1,6 +1,6 @@
 declare module 'gulp-jcrushcss' {
   export interface JCrushCSSOptions {
-    html?: Array;
+    html?: Array<string>;
     inline?: boolean;
     appendExt?: boolean;
     eval?: boolean;
@@ -11,12 +11,12 @@ declare module 'gulp-jcrushcss' {
     prog?: boolean;
     fin?: boolean;
     maxLen?: number;
-    omit?: Array;
+    omit?: Array<string>;
     clean?: boolean;
     words?: boolean;
     trim?: boolean;
-    break?: Array;
-    split?: Array;
+    break?: Array<string>;
+    split?: Array<string>;
     escSafe?: boolean;
   }
 
