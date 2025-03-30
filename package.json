@@ -1,0 +1,41 @@
+{
+  "name": "gulp-jcrushcss",
+  "version": "1.0.0",
+  "description": "Javascript based CSS deduplicator gulp plugin",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/braksator/gulp-jcrushcss.git"
+  },
+  "keywords": [
+    "CSS",
+    "compressor",
+    "deduplicator",
+    "deduplication",
+    "style",
+    "styles",
+    "stylesheet",
+    "stylesheets",
+    "dedupe",
+    "compress",
+    "crush",
+    "jcrush",
+    "shrink",
+    "minify",
+    "minifier"
+  ],
+  "author": "D.A. Braksator",
+  "license": "Unlicense",
+  "bugs": {
+    "url": "https://github.com/braksator/gulp-jcrushcss/issues"
+  },
+  "homepage": "https://github.com/braksator/gulp-jcrushcss#readme",
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "jcrush": "^1.0.36",
+    "path": "^0.12.7"
+  }
+}
