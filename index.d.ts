@@ -19,6 +19,6 @@ export interface JCrushCSSOptions {
   escSafe?: boolean;
 }
 
-declare function gulpJCrushCSS(opts?: JCrushOptions): any;
+declare function gulpJCrushCSS(opts?: JCrushCSSOptions): NodeJS.ReadWriteStream;
 
-export function gulpJCrushCSS(opts?: JCrushCSSOptions): any;
+export = gulpJCrushCSS;
