@@ -131,6 +131,13 @@ opportunities are found, whereas fewer splits executes much faster but won't com
 
 ---
 
+## Unnecessary Reprocessing
+
+To prevent unnecessarily reprocessing files consider using [gulp-changed](https://www.npmjs.com/package/gulp-changed),
+[gulp-cached](https://www.npmjs.com/package/gulp-cached), or [gulp-newer](https://www.npmjs.com/package/gulp-newer).
+
+---
+
 ## Contributing
 
 https://github.com/braksator/gulp-jcrushcss
