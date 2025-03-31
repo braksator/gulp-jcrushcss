@@ -7,7 +7,11 @@ Deduplicates a CSS file using Javascript.
 
 > It creates a compressed Javascript file (or inline code) that sets your styles and then modifies your HTML file to use that instead of your original CSS.
 
+This is intended to be applied after your regular CSS minifier.
+
 Uses [JCrush](https://www.npmjs.com/package/jcrush), see that project for more info (and an in-built plugin for compressing Javascript files).
+
+If you'd like to optimise your HTML output (more than minifiers), see also [HyperCrush](https://www.npmjs.com/package/hypercrush).
 
 
 ## Installation
