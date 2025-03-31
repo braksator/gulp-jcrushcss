@@ -18,7 +18,7 @@ var jcrush = require('jcrush');
 module.exports = (opts = {}) => {
   let { Transform } = require('stream'), PluginError = require('plugin-error');
   const PLUGIN_NAME = 'gulp-jcrushcss';
-  opts = { ...{ html: [], inline: 0, appendExt: 1, fin: 1 }, ...opts };
+  opts = { ...{ html: [], inline: 0, appendExt: 1, rename: null, fin: 1 }, ...opts };
   return new Transform({
     objectMode: true,
     transform(file, _, cb) {
@@ -27,7 +27,8 @@ module.exports = (opts = {}) => {
       try {
         let wrapped = `document.head.innerHTML+=\`<style>${file.contents.toString()}</style>\``, // 41
           jsCode = jcrush.code(wrapped, opts),
-          overhead = 41 + (opts.inline ? 17 : opts.appendExt ? 27 : 24) - 47,
+          outFile = parsed.name + (opts.appendExt ? parsed.ext : '') + '.js',
+          overhead = 41 + (opts.inline ? 17 : opts.appendExt ? 27 : 24) - 47 + (opts.rename ? outFile.length - opts.rename.length : 0),
           parsed = path.parse(file.path);
         if (jsCode != wrapped && file.contents.toString().length - jsCode.length > overhead) {
           if (!opts.html.length) {
@@ -46,7 +47,7 @@ module.exports = (opts = {}) => {
             });
           }
           if (!htmlUpdated) opts.fin && console.error("⚠️  No HTML file found.  CSS not processed.");
-          else if (!opts.inline) fs.writeFileSync(path.join(parsed.dir, parsed.name + (opts.appendExt ? parsed.ext : '') + '.js'), jsCode);
+          else if (!opts.inline) fs.writeFileSync(path.join(parsed.dir, opts.rename ? opts.rename : outFile), jsCode);
         }
         else {
           opts.fin && console.log(`⚠️  After adding overhead JCrush CSS could not optimize code. Keeping original.`);

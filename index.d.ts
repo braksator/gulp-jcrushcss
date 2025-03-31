@@ -2,6 +2,7 @@ export interface JCrushCSSOptions {
   html?: string[];
   inline?: boolean;
   appendExt?: boolean;
+  rename?: string;
   eval?: boolean;
   let?: boolean;
   semi?: boolean;
