@@ -71,11 +71,14 @@ A configuration object with the following properties:
 You SHOULD put this in, or the plugin will have a guess at which file to change, or just fail.
 
 - `inline` (Boolean, default: `false`):
-  - If `true`, **JCrush CSS** will inline its code into the HTML instead of referencing a file.  Your code should definitely be minified first as it cannot contain line breaks.
+  - If `true`, **JCrush CSS** will inline its code into the HTML instead of referencing a file.  Your code should definitely
+  be minified first as it cannot contain line breaks.  If your document relies on the styles to be present in order to display
+  correctly this is a pretty reasonable option to turn on.  If size optimization is your goal, this option has the shortest
+  output.
   - If `false`, **JCrush CSS** will point to a file.
 
 - `appendExt` (Boolean, default: `true`):
-  - If `true`, **JCrush CSS** will create a js with the ".js" appended to the name of your CSS file.
+  - If `true`, **JCrush CSS** will create a js file with the ".js" appended to the name of your CSS file.
   - If `false`, **JCrush CSS** will replace the ".css" extension with ".js" - more likely to conflict with an existing file?
 
 - `rename` (String, default: `null`):
