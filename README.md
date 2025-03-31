@@ -88,9 +88,10 @@ You SHOULD put this in, or the plugin will have a guess at which file to change,
 - `rename` (String, default: `null`):
   - Optionally specify an output filename (overrides `appendExt`).
 
-- `eval` (Boolean, default: `true`):
-  - If `true`, **JCrush CSS** will use `eval()` for executing code strings, which has shorter output.
-  - If `false`, **JCrush CSS** will use `new Function()` instead, which may be more secure in some environments.
+- `wrap` (String, default: `eval`):
+  - If `eval`, **JCrush** will use `eval()` for executing code strings, which has shorter output.
+  - If `newFunc`, **JCrush** will use `new Function()` instead, which may be more secure in some environments.
+  - If `custom`, **JCrush** will use options `customPre` and `customPost` to wrap the code string.
 
 - `let` (Boolean, default: `false`):
   - If `true`, **JCrush CSS** will use the `let` keyword for variable declarations.
@@ -114,6 +115,13 @@ You SHOULD put this in, or the plugin will have a guess at which file to change,
 - `fin` (Boolean, default: `true`):
   - If `true`, **JCrush CSS** will output final console messages about bytes saved or failure.
   - If `false`, will remain silent.
+
+  - `customPre` (String, default: `''`):
+  Supply a custom string to prepend to the main code string. Used when `wrap` is set to `custom`.
+
+- `customPost` (String, default: `''`):
+  Supply a custom string to append to the main code string. Used when `wrap` is set to `custom`.
+
 
 Additionally, you can alter compression behavior:
 
