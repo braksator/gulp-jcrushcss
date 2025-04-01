@@ -1,6 +1,6 @@
 {
   "name": "gulp-jcrushcss",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "Javascript based CSS deduplicator gulp plugin",
   "main": "index.js",
   "scripts": {
@@ -35,7 +35,7 @@
   "homepage": "https://github.com/braksator/gulp-jcrushcss#readme",
   "dependencies": {
     "fs": "^0.0.1-security",
-    "jcrush": "^1.0.41",
+    "jcrush": "^1.1.9",
     "path": "^0.12.7"
   }
 }
