@@ -27,9 +27,9 @@ module.exports = (opts = {}) => {
       try {
         let wrapped = `document.head.innerHTML+=\`<style>${file.contents.toString()}</style>\``, // 41
           jsCode = jcrush.code(wrapped, opts),
+          parsed = path.parse(file.path),
           outFile = parsed.name + (opts.appendExt ? parsed.ext : '') + '.js',
-          overhead = 41 + (opts.inline ? 17 : opts.appendExt ? 27 : 24) - 47 + (opts.rename ? outFile.length - opts.rename.length : 0),
-          parsed = path.parse(file.path);
+          overhead = 41 + (opts.inline ? 17 : opts.appendExt ? 27 : 24) - 47 + (opts.rename ? outFile.length - opts.rename.length : 0);
         if (jsCode != wrapped && file.contents.toString().length - jsCode.length > overhead) {
           if (!opts.html.length) {
             let htmlGuess = path.join(path.dirname(file.path), '..', 'index.html');
