@@ -39,7 +39,7 @@ module.exports = (opts = {}) => {
           if (opts.html.length) {
             opts.html.forEach(htmlFilePath => {
               fs.writeFileSync(htmlFilePath, fs.readFileSync(htmlFilePath, 'utf-8')
-                .replace(new RegExp(`<link[^>]*href=\\s*['"]?${file.basename}['"]?[^>]*>`, 'gi'), // 14 to 47
+                .replace(new RegExp(`<link[^>]*href=\\s*['"]?[^'">]*${file.basename}['"]?[^>]*>`, 'gi'), // 14 to 47
                   opts.inline ? `<script>${jsCode}</script>`: `<script src="${path.relative(path.dirname(htmlFilePath), file.path)}.js"></script>`) // 17, 27 or 24
               );
               opts.fin && console.log('✅ Updated HTML file:', htmlFilePath);
